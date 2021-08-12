@@ -139,13 +139,13 @@ function LinkedList(){
     };
 }
 
-let linkedList = new LinkedList();
+let sll = new LinkedList();  //sll is an abbrevation of single-link-list
 
 // array of element to add to node
 let array = [12,34,2,17,93,61,12,3,9,55,82,14,1,73];
 
 for (const arr of array) {
-    linkedList.add(arr);
+    sll.add(arr);
 }
 //linkedList.addAt(45,0);
 //linkedList.remove(2);
