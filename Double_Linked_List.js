@@ -82,6 +82,7 @@ function doubleLinkedList(){
                 currentNode = currentNode.next;
             }
             previousNode.next = currentNode.next;
+            currentNode.next.previous = previousNode;
         } 
         
         length--;
@@ -104,6 +105,7 @@ function doubleLinkedList(){
             }
 
             previousNode.next = currentNode.next;
+            currentNode.next.previous = previousNode;
         }   
 
         length--;
@@ -154,4 +156,5 @@ for (const arr of array) {
     dll.add(arr);
 }
 dll.addAt(39,8);
+dll.removeAt(3);
 console.log(dll.head());
