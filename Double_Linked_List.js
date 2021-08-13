@@ -43,9 +43,11 @@ function doubleLinkedList(){
         let newNode = new Node(element);
 
         let currentNode = head;
+        let previousNode = null;
         let count = 0;
         if(index === 0){
             newNode.next = head;
+            head.previous = newNode;
             head = newNode;
         }
          
@@ -53,12 +55,16 @@ function doubleLinkedList(){
           console.log("Index out of range")
         
         else{
-            while(count < index-1){  //it's index-1 since current node in the loop starts from the node after the head node.
+            while(count < index){  //it's index-1 since current node in the loop starts from the node after the head node.
+                previousNode = currentNode;
                 currentNode = currentNode.next;
                 count++;
             }
-            newNode.next = currentNode.next;
-            currentNode.next = newNode;
+            newNode.next = currentNode;
+            currentNode.previous = newNode;
+
+           previousNode.next = newNode;
+           newNode.previous = previousNode;
           }
           length++;
     };
@@ -143,7 +149,9 @@ let dll = new doubleLinkedList();
 
 let array = [12,34,2,17,93,61,12,3,9,55,82,14,1,73];  // array to be added to link list
 
+
 for (const arr of array) {
     dll.add(arr);
 }
+dll.addAt(39,8);
 console.log(dll.head());
