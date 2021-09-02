@@ -1,15 +1,14 @@
-// Implement a Linked list
-
-
+// Implement a Double Linked list
 // a constructor function to create a Node object.
 function Node(element){
     this.element = element;
-    this.next = null;
+    this.next = null;     // pointer to next node
+    this.previous = null;  // pointer to previous node
 }
 
-function LinkedList(){
+function doubleLinkedList(){
     let head = null;        //specify the head node
-    let length = 0;
+    let length = 0;         // initial length of linkedlist
 
 
     // function returns the size of a Node
@@ -24,9 +23,9 @@ function LinkedList(){
 
     this.add = (element) =>{
         var newNode = new Node(element);   // create a new Node
-            if(head === null)  // check for an empty head
-            head = newNode;
-
+            if(head === null)      //check for empty head
+              head = newNode;
+            
             else{
             let currentNode = head;
                while(currentNode.next){
@@ -34,6 +33,7 @@ function LinkedList(){
                }
 
                currentNode.next = newNode;
+               newNode.previous = currentNode;
             } 
             length++;
     };
@@ -43,9 +43,11 @@ function LinkedList(){
         let newNode = new Node(element);
 
         let currentNode = head;
+        let previousNode = null;
         let count = 0;
         if(index === 0){
             newNode.next = head;
+            head.previous = newNode;
             head = newNode;
         }
          
@@ -53,12 +55,16 @@ function LinkedList(){
           console.log("Index out of range")
         
         else{
-            while(count < index-1){  //it's index-1 since current node in the loop starts from the node after the head node.
+            while(count < index){  //it's index-1 since current node in the loop starts from the node after the head node.
+                previousNode = currentNode;
                 currentNode = currentNode.next;
                 count++;
             }
-            newNode.next = currentNode.next;
-            currentNode.next = newNode;
+            newNode.next = currentNode;
+            currentNode.previous = newNode;
+
+           previousNode.next = newNode;
+           newNode.previous = previousNode;
           }
           length++;
     };
@@ -76,6 +82,7 @@ function LinkedList(){
                 currentNode = currentNode.next;
             }
             previousNode.next = currentNode.next;
+            currentNode.next.previous = previousNode;
         } 
         
         length--;
@@ -98,6 +105,7 @@ function LinkedList(){
             }
 
             previousNode.next = currentNode.next;
+            currentNode.next.previous = previousNode;
         }   
 
         length--;
@@ -139,19 +147,14 @@ function LinkedList(){
     };
 }
 
-let sll = new LinkedList();  //sll is an abbrevation of single-link-list
+let dll = new doubleLinkedList();
 
-// array of element to add to node
-let array = [12,34,2,17,93,61,12,3,9,55,82,14,1,73];
+let array = [12,34,2,17,93,61,12,3,9,55,82,14,1,73];  // array to be added to link list
+
 
 for (const arr of array) {
-    sll.add(arr);
+    dll.add(arr);
 }
-//linkedList.addAt(45,0);
-//linkedList.remove(2);
-//linkedList.removeAt(5);
-// console.log(linkedList.elementAt(8))
-// console.log(linkedList.indexOf(73));
-// console.log(linkedList.size());
-// console.log(linkedList.head());
-
+dll.addAt(39,8);
+dll.removeAt(3);
+console.log(dll.head());
